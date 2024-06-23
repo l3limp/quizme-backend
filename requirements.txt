@@ -1,0 +1,5 @@
+pdfplumber
+crewai
+pydantic
+flask
+flask_restful
