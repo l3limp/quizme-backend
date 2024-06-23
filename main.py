@@ -85,7 +85,7 @@ def save_to_txt(file_path, first_page, last_page):
     text = [txt for txt in text if (len(txt) > 16)]
     text = ' '.join(text)
     
-    upload_dir = '/uploads'
+    upload_dir = 'uploads/'
     txt_path = os.path.join(upload_dir, 'uploaded_file.txt')
     file = open(txt_path, 'w')
     file.write(text)
@@ -118,7 +118,7 @@ class GetQuiz(Resource):
 
             file_data = base64.b64decode(file_content)
 
-            upload_dir = '/uploads'
+            upload_dir = 'uploads/'
             if not os.path.exists(upload_dir):
                 os.makedirs(upload_dir)
 
