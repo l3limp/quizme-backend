@@ -156,7 +156,8 @@ class GetQuiz(Resource):
                 'body': {
                         'output': response,
                         'first_page': first_page,
-                        'last_page': last_page
+                        'last_page': last_page,
+                        'num_of_ques': num_of_ques,
                     },
             
             }
