@@ -10,9 +10,11 @@ import pdfplumber
 
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
 
 logger = logging.getLogger()

@@ -4,3 +4,4 @@ pydantic
 flask
 flask_restful
 gunicorn
+flask_cors
