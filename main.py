@@ -15,8 +15,6 @@ from flask_restful import Api, Resource
 app = Flask(__name__)
 api = Api(app)
 
-os.environ["OPENAI_MODEL_NAME"] = 'gpt-3.5-turbo'
-os.environ['OPENAI_API_KEY'] = 'sk-proj-0eup5jt8s02xbKGR1DKFT3BlbkFJVtrZDgF3A3zjAActgvUu'
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
