@@ -3,3 +3,4 @@ crewai
 pydantic
 flask
 flask_restful
+gunicorn
