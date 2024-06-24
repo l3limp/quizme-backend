@@ -113,10 +113,7 @@ class GetQuiz(Resource):
             last_page = body['last_page']
             
             if not file_content:
-                return jsonify({
-                    'statusCode': 400,
-                    'body': {'message': 'File not provided'}
-                })
+                return {'message': 'File not provided'}, 400
 
             file_data = base64.b64decode(file_content)
 
@@ -132,10 +129,7 @@ class GetQuiz(Resource):
             try: 
                 txt_path, text = save_to_txt(file_path, first_page, last_page)
             except Exception as e:
-                return jsonify({
-                    'statusCode': 500,
-                    'body': {'message': str(e), 'reason': 'Could not save as txt', 'path': file_path}
-                })
+                return {'message': str(e), 'reason': 'Could not save as txt', 'path': file_path}, 500
             
             response = 'None'
             
@@ -143,32 +137,21 @@ class GetQuiz(Resource):
                 if txt_path != '':
                     response = generate_quiz(num_of_ques, txt_path, text)
                 else:
-                    return jsonify({
-                        'statusCode': 500,
-                        'body': {'message': 'Could not get txt_path', 'reason': 'Failed at quiz gen'}
-                    }  )
+                    return {'message': 'Could not get txt_path', 'reason': 'Failed at quiz gen'}, 500
             except Exception as e:
-                return jsonify({
-                    'statusCode': 500,
-                    'body': {'message': str(e), 'reason': 'Failed at quiz gen'}
-                })   
+                return {'message': str(e), 'reason': 'Failed at quiz gen'}, 500
 
             return {
-                'statusCode': 200,
-                'body': {
                         'output': response,
                         'first_page': first_page,
                         'last_page': last_page,
                         'num_of_ques': num_of_ques,
-                    },
+                    }, 200
             
-            }
+            
 
         except Exception as e:
-            return jsonify({
-                'statusCode': 500,
-                'body': {'message': str(e), 'reason': 'I dont know'}
-            })
+            return {'message': str(e), 'reason': 'I dont know'}, 500
             
 api.add_resource(GetQuiz, '/getquiz')
 
