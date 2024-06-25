@@ -99,11 +99,6 @@ class GetQuiz(Resource):
     def post(self):
         
         logger.info('Received event: %s', request)
-        
-        
-        # body = event.get('body', {})
-        # if event.get('isBase64Encoded', False):
-        #     body = base64.b64decode(body)
             
         try:
             body = request.get_json()
@@ -111,9 +106,6 @@ class GetQuiz(Resource):
             file_content = body['file']
             first_page = body['first_page']
             last_page = body['last_page']
-            
-            if not file_content:
-                return {'message': 'File not provided'}, 400
 
             file_data = base64.b64decode(file_content)
 
@@ -131,24 +123,20 @@ class GetQuiz(Resource):
             except Exception as e:
                 return {'message': str(e), 'reason': 'Could not save as txt', 'path': file_path}, 500
             
-            response = 'None'
-            
             try: 
                 if txt_path != '':
                     response = generate_quiz(num_of_ques, txt_path, text)
-                else:
-                    return {'message': 'Could not get txt_path', 'reason': 'Failed at quiz gen'}, 500
-            except Exception as e:
-                return {'message': str(e), 'reason': 'Failed at quiz gen'}, 500
-
-            return {
+                    return {
                         'output': response,
                         'first_page': first_page,
                         'last_page': last_page,
                         'num_of_ques': num_of_ques,
                     }, 200
-            
-            
+                else:
+                    return {'message': 'Could not get txt_path', 'reason': 'Failed at quiz gen'}, 500
+                
+            except Exception as e:
+                return {'message': str(e), 'reason': 'Failed at quiz gen'}, 500
 
         except Exception as e:
             return {'message': str(e), 'reason': 'I dont know'}, 500
